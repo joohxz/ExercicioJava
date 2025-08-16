@@ -64,5 +64,21 @@ public class Principal {
             System.out.println("Função: " + funcao);
             System.out.println("Funcionários: " + funcionariosAgrupados);
         });
+
+        //Filtro funcionários que nasceram nos meses 10 e 12
+        var funcionariosFiltradosOutubroDezembro = funcionarios.stream().filter(funcionario -> {
+            int mes = funcionario.getDataNascimento().getMonthValue();
+            return mes == 10 || mes == 12;
+        }).collect(Collectors.toList());
+
+        funcionariosFiltradosOutubroDezembro.forEach(funcionario -> {
+            String stringSalario = decimalFormat.format(funcionario.getSalario());
+
+            System.out.println( "\nNome: " + funcionario.getNome() + 
+                                " | Data de Nascimento: " + funcionario.getDataNascimento().format(dateFormat) + 
+                                " | Salário: " + stringSalario + 
+                                " | Função: " + funcionario.getFuncao());
+            System.out.println("-------------------------------");
+        });
     }
 }
