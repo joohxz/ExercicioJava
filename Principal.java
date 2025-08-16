@@ -14,6 +14,9 @@ import java.util.stream.Collectors;
 public class Principal {
     public static void main(String[] args){
 
+        //Declaração variável salário minimo imutável para operações
+        final BigDecimal salarioMinimo = new BigDecimal(1212.00);
+
         //Date format utilizado
         var dateFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
@@ -115,10 +118,14 @@ public class Principal {
         });
         }
 
+        //Calcula somatório de todos os salários e imprime
         var salarioTotal = funcionarios.stream().map(funcionario -> funcionario.getSalario()).reduce(BigDecimal.ZERO, BigDecimal::add);
-        String salarioTotalString = decimalFormat.format(salarioTotal);
-        System.out.println("O salário total dos funcionários é R$"+ salarioTotalString);
+        System.out.println("O salário total dos funcionários é R$"+ decimalFormat.format(salarioTotal));
 
-
+        //Imprime a quantidade de salários minimos que cada um ganha
+        funcionarios.forEach(funcionario -> {
+            BigDecimal quantidadeSalarios = funcionario.getSalario().divide(salarioMinimo, 2);
+            System.out.println("O funcionário " + funcionario.getNome() + " ganha cerca de " + decimalFormat.format(quantidadeSalarios) + " salários minimos");
+        });
     }
 }
