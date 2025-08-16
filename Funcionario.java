@@ -29,4 +29,9 @@ public class Funcionario extends Pessoa {
     public void setFuncao(String funcao) {
         this.Funcao = funcao;
     }
+
+    @Override
+    public String toString() {
+        return getNome() + " | " + getDataNascimento() + " | " + getSalario() + " | " + getFuncao();
+    }
 }
