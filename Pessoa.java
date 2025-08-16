@@ -4,6 +4,11 @@ public class Pessoa {
     private String Nome;
     private LocalDate DataNascimento;
 
+    public Pessoa(String nome, LocalDate dataNascimento){
+        this.Nome = nome;
+        this.DataNascimento = dataNascimento;
+    }
+
     //Getters
     public String getNome() {
         return this.Nome;
@@ -11,14 +16,5 @@ public class Pessoa {
 
     public LocalDate getDataNascimento() {
         return this.DataNascimento;
-    }
-
-    //Setters
-    public void setNome(String nome) {
-        this.Nome = nome;
-    }
-
-    public void setDataNascimento(LocalDate dataNascimento) {
-        this.DataNascimento = dataNascimento;
     }
 }
