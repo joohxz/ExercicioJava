@@ -91,7 +91,21 @@ public class Principal {
             int idade = LocalDate.now().getYear() - funcionarioMaisVelho.getDataNascimento().getYear();
             System.out.println("\nNome: " + funcionarioMaisVelho.getNome() + 
                                 " | Idade: " + idade);
+            System.out.println("-------------------------------");
         }
+
+        var funcionariosOrdenadosOrdemAlfabetica = funcionarios.stream().sorted(Comparator.comparing(funcionario -> funcionario.getNome())).collect(Collectors.toList()); 
+        
+        funcionariosOrdenadosOrdemAlfabetica.forEach(funcionario -> {
+            String stringSalario = decimalFormat.format(funcionario.getSalario());
+
+            System.out.println( "\nNome: " + funcionario.getNome() + 
+                                " | Data de Nascimento: " + funcionario.getDataNascimento().format(dateFormat) + 
+                                " | Salário: " + stringSalario + 
+                                " | Função: " + funcionario.getFuncao());
+            System.out.println("-------------------------------");
+        });
+
 
     }
 }
