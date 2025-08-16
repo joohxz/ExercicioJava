@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Principal {
     public static void main(String[] args){
@@ -32,7 +34,7 @@ public class Principal {
         funcionarios.removeIf(funcionario -> funcionario.getNome().equals("João"));
 
         //Setta formatação de números decimais
-        DecimalFormatSymbols simbolos = new DecimalFormatSymbols(new Locale("pt", "BR"));
+        var simbolos = new DecimalFormatSymbols(new Locale("pt", "BR"));
         simbolos.setDecimalSeparator(',');
         simbolos.setGroupingSeparator('.');
         DecimalFormat decimalFormat = new DecimalFormat("#,##0.00", simbolos);
@@ -53,5 +55,14 @@ public class Principal {
 
         //Aumenta salários em 10%
         funcionarios.forEach(f -> f.setSalario(f.getSalario().multiply(new BigDecimal(1.10))));
+
+        //Group by da lista de funcionários por função
+        Map<String, List<Funcionario>> funcionariosAgrupadosFuncao = funcionarios.stream().collect(Collectors.groupingBy(Funcionario::getFuncao));
+
+        //Print funcionários por função
+        funcionariosAgrupadosFuncao.forEach((funcao, funcionariosAgrupados) -> {
+            System.out.println("Função: " + funcao);
+            System.out.println("Funcionários: " + funcionariosAgrupados);
+        });
     }
 }
