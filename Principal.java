@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -71,7 +72,9 @@ public class Principal {
             return mes == 10 || mes == 12;
         }).collect(Collectors.toList());
 
-        funcionariosFiltradosOutubroDezembro.forEach(funcionario -> {
+        //Printa funcionários que nasceram em outubro e dezembro, se houver
+        if(!funcionariosFiltradosOutubroDezembro.isEmpty()) {
+            funcionariosFiltradosOutubroDezembro.forEach(funcionario -> {
             String stringSalario = decimalFormat.format(funcionario.getSalario());
 
             System.out.println( "\nNome: " + funcionario.getNome() + 
@@ -80,5 +83,15 @@ public class Principal {
                                 " | Função: " + funcionario.getFuncao());
             System.out.println("-------------------------------");
         });
+        }
+
+        var funcionarioMaisVelho = funcionarios.stream().min(Comparator.comparing(Funcionario::getDataNascimento)).orElse(null);
+
+        if(funcionarioMaisVelho != null){
+            int idade = LocalDate.now().getYear() - funcionarioMaisVelho.getDataNascimento().getYear();
+            System.out.println("\nNome: " + funcionarioMaisVelho.getNome() + 
+                                " | Idade: " + idade);
+        }
+
     }
 }
