@@ -42,6 +42,7 @@ public class Principal {
 
         //Print de todos os funcionários
         int indice = 1;
+        System.out.println("------------ TODOS OS FUNCIONÁRIOS --------------");
         for (var funcionario : funcionarios) {
             String stringSalario = decimalFormat.format(funcionario.getSalario());
 
@@ -61,6 +62,7 @@ public class Principal {
         Map<String, List<Funcionario>> funcionariosAgrupadosFuncao = funcionarios.stream().collect(Collectors.groupingBy(Funcionario::getFuncao));
 
         //Print funcionários por função
+        System.out.println("------------ FUNCIONÁRIOS AGRUPADOS POR FUNÇÃO --------------");
         funcionariosAgrupadosFuncao.forEach((funcao, funcionariosAgrupados) -> {
             System.out.println("Função: " + funcao);
             System.out.println("Funcionários: " + funcionariosAgrupados);
@@ -74,6 +76,8 @@ public class Principal {
 
         //Printa funcionários que nasceram em outubro e dezembro, se houver
         if(!funcionariosFiltradosOutubroDezembro.isEmpty()) {
+            System.out.println("------------ FUNCIONÁRIOS QUE NASCERAM MÊS 10 E 12 --------------");
+
             funcionariosFiltradosOutubroDezembro.forEach(funcionario -> {
             String stringSalario = decimalFormat.format(funcionario.getSalario());
 
@@ -88,6 +92,7 @@ public class Principal {
         var funcionarioMaisVelho = funcionarios.stream().min(Comparator.comparing(Funcionario::getDataNascimento)).orElse(null);
 
         if(funcionarioMaisVelho != null){
+            System.out.println("------------ FUNCIONÁRIO MAIS VELHO --------------");
             int idade = LocalDate.now().getYear() - funcionarioMaisVelho.getDataNascimento().getYear();
             System.out.println("\nNome: " + funcionarioMaisVelho.getNome() + 
                                 " | Idade: " + idade);
@@ -96,7 +101,10 @@ public class Principal {
 
         var funcionariosOrdenadosOrdemAlfabetica = funcionarios.stream().sorted(Comparator.comparing(funcionario -> funcionario.getNome())).collect(Collectors.toList()); 
         
-        funcionariosOrdenadosOrdemAlfabetica.forEach(funcionario -> {
+        if(!funcionariosOrdenadosOrdemAlfabetica.isEmpty()) {
+            System.out.println("------------ FUNCIONÁRIOS ORDENADOS POR ORDEM ALFABÉTICA --------------");
+
+            funcionariosOrdenadosOrdemAlfabetica.forEach(funcionario -> {
             String stringSalario = decimalFormat.format(funcionario.getSalario());
 
             System.out.println( "\nNome: " + funcionario.getNome() + 
@@ -105,6 +113,11 @@ public class Principal {
                                 " | Função: " + funcionario.getFuncao());
             System.out.println("-------------------------------");
         });
+        }
+
+        var salarioTotal = funcionarios.stream().map(funcionario -> funcionario.getSalario()).reduce(BigDecimal.ZERO, BigDecimal::add);
+        String salarioTotalString = decimalFormat.format(salarioTotal);
+        System.out.println("O salário total dos funcionários é R$"+ salarioTotalString);
 
 
     }
