@@ -17,7 +17,7 @@ public class Funcionario extends Pessoa {
         return this.Salario;
     }
 
-    public String getString() {
+    public String getFuncao() {
         return this.Funcao;
     }
 
